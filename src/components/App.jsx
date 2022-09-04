@@ -1,3 +1,10 @@
+import Container from './Container';
+import TaskPhonebook from './TaskPhonebook';
+
 export const App = () => {
-  return <div>goit-react-hw-02-phonebook</div>;
+  return (
+    <Container>
+      <TaskPhonebook />
+    </Container>
+  );
 };
