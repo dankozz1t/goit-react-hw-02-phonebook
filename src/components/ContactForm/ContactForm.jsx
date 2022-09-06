@@ -4,7 +4,7 @@ import s from './ContactForm.module.css';
 export default class ContactForm extends Component {
   render() {
     return (
-      <form action="" className={s.form}>
+      <form action="" className={s.form} onSubmit={this.props.handleSubmit}>
         <label className={s.label}>
           Name
           <input
