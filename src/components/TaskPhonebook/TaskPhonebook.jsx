@@ -4,7 +4,7 @@ import ContactList from '../ContactList';
 import ContactForm from '../ContactForm';
 import { nanoid } from 'nanoid';
 import s from './TaskPhonebook.module.css';
-// import Filter from './Filter';
+import Filter from '../Filter';
 
 export default class TaskPhonebook extends Component {
   state = {
@@ -45,11 +45,9 @@ export default class TaskPhonebook extends Component {
     const { contacts, filter } = this.state;
     let renderContacts = contacts;
 
-    if (filter) {
-      renderContacts = contacts.filter(({ name }) =>
-        name.toLowerCase().includes(filter)
-      );
-    }
+    renderContacts = contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.trim())
+    );
 
     return (
       <div className={s.box}>
@@ -58,16 +56,7 @@ export default class TaskPhonebook extends Component {
         </Section>
 
         <Section title="Contacts">
-          <label>
-            Find contacts by name
-            <input
-              onChange={this.handleFilter}
-              type="text"
-              name="filter"
-              title="Find contacts by name"
-            />
-          </label>
-          {/* <Filter onChange={this.handleFilter} /> */}
+          <Filter handleFilter={this.handleFilter} />
 
           <ContactList contacts={renderContacts} />
         </Section>
@@ -75,9 +64,3 @@ export default class TaskPhonebook extends Component {
     );
   }
 }
-
-// import PropTypes from 'prop-types';
-
-//   static propTypes = {
-//     prop: PropTypes,
-//   };
