@@ -1,7 +1,18 @@
-import ContactItem from 'components/ContactItem/ContactItem';
 import React, { Component } from 'react';
 
+import ContactItem from './ContactItem/ContactItem';
+import PropTypes from 'prop-types';
+
 export default class ContactList extends Component {
+  static propTypes = {
+    contacts: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    handleClickDelete: PropTypes.func.isRequired,
+  };
+
   render() {
     return (
       <div>
@@ -12,7 +23,9 @@ export default class ContactList extends Component {
                 key={id}
                 name={name}
                 number={number}
-                handleClickDelete={this.props.handleClickDelete}
+                handleClickDelete={() => {
+                  this.props.handleClickDelete(id);
+                }}
               />
             ))}
           </ul>

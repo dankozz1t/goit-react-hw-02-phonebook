@@ -1,10 +1,13 @@
-import Section from '../Section';
 import React, { Component } from 'react';
+
+import Section from '../Section';
+import Filter from '../Filter';
 import ContactList from '../ContactList';
 import ContactForm from '../ContactForm';
-import { nanoid } from 'nanoid';
+
 import s from './TaskPhonebook.module.css';
-import Filter from '../Filter';
+
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export default class TaskPhonebook extends Component {
   state = {
@@ -18,28 +21,24 @@ export default class TaskPhonebook extends Component {
     filter: '',
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const form = e.currentTarget;
+  onAddContact = contact => {
+    const { contacts } = this.state;
 
-    const contactId = nanoid();
-    const newName = form.elements.name.value;
-    const number = form.elements.number.value;
-
-    const newContact = { id: contactId, name: newName, number };
-    const isUnique = !this.state.contacts.find(({ name }) => name === newName);
-
-    if (isUnique) {
-      this.setState({ contacts: [...this.state.contacts, { ...newContact }] });
-    } else {
-      alert(`${newName} is already in contacts`);
+    const searchUnique = contact.name.toLowerCase();
+    if (contacts.find(({ name }) => name.toLowerCase() === searchUnique)) {
+      Notify.failure(`${contact.name} is already in contacts`);
+      return;
     }
 
-    form.reset();
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, contact],
+    }));
   };
 
-  handleClickDelete = e => {
-    console.log(1);
+  handleClickDelete = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
   };
 
   handleFilter = e => {
@@ -57,7 +56,7 @@ export default class TaskPhonebook extends Component {
     return (
       <div className={s.box}>
         <Section title="Phonebook">
-          <ContactForm handleSubmit={this.handleSubmit} />
+          <ContactForm onAddContact={this.onAddContact} />
         </Section>
 
         <Section title="Contacts">
