@@ -16,8 +16,6 @@ export default class TaskPhonebook extends Component {
       { id: 'id-5', name: 'Sergey Mentor 2', number: '666-66-66' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   handleSubmit = e => {
@@ -25,16 +23,23 @@ export default class TaskPhonebook extends Component {
     const form = e.currentTarget;
 
     const contactId = nanoid();
-    const name = form.elements.name.value;
+    const newName = form.elements.name.value;
     const number = form.elements.number.value;
 
-    const newContact = { id: contactId, name, number };
+    const newContact = { id: contactId, name: newName, number };
+    const isUnique = !this.state.contacts.find(({ name }) => name === newName);
 
-    this.setState({ name: name, number: number });
-
-    this.setState({ contacts: [...this.state.contacts, { ...newContact }] });
+    if (isUnique) {
+      this.setState({ contacts: [...this.state.contacts, { ...newContact }] });
+    } else {
+      alert(`${newName} is already in contacts`);
+    }
 
     form.reset();
+  };
+
+  handleClickDelete = e => {
+    console.log(1);
   };
 
   handleFilter = e => {
@@ -58,7 +63,10 @@ export default class TaskPhonebook extends Component {
         <Section title="Contacts">
           <Filter handleFilter={this.handleFilter} />
 
-          <ContactList contacts={renderContacts} />
+          <ContactList
+            contacts={renderContacts}
+            handleClickDelete={this.handleClickDelete}
+          />
         </Section>
       </div>
     );
