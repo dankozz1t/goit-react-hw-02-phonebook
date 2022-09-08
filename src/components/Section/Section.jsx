@@ -14,10 +14,10 @@ export default class Section extends Component {
 
   render() {
     return (
-      <div>
+      <section>
         <h2 className={s.title}>{this.props.title}</h2>
         {this.props.children}
-      </div>
+      </section>
     );
   }
 }
