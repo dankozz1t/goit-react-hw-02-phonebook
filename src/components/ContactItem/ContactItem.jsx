@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import s from './ContactItem.module.css';
+
 export default class ContactItem extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -10,9 +12,15 @@ export default class ContactItem extends Component {
 
   render() {
     return (
-      <li>
-        <span>{this.props.name}</span>: <span>{this.props.number}</span>
-        <button onClick={this.props.handleClickDelete} type="button">
+      <li className={s.item}>
+        <p>
+          <span className={s.name}>{this.props.name}</span>: {this.props.number}
+        </p>
+        <button
+          className={s.btn}
+          onClick={this.props.handleClickDelete}
+          type="button"
+        >
           Delete
         </button>
       </li>

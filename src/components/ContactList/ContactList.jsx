@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import ContactItem from '../ContactItem/ContactItem';
 import PropTypes from 'prop-types';
 
+import s from './ContactList.module.css';
+
 export default class ContactList extends Component {
   static propTypes = {
     contacts: PropTypes.arrayOf(
@@ -15,9 +17,9 @@ export default class ContactList extends Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.props.contacts.length > 0 && (
-          <ul>
+          <ul className={s.list}>
             {this.props.contacts.map(({ id, name, number }) => (
               <ContactItem
                 key={id}
@@ -30,7 +32,7 @@ export default class ContactList extends Component {
             ))}
           </ul>
         )}
-      </div>
+      </>
     );
   }
 }
