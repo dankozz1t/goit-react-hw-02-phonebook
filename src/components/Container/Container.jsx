@@ -6,8 +6,11 @@ const Container = ({ children }) => {
   return <div className={s.container}>{children}</div>;
 };
 
-export default Container;
-
 Container.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
+
+export default Container;
