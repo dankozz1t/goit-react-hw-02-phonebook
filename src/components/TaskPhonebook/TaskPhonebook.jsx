@@ -60,7 +60,7 @@ export default class TaskPhonebook extends Component {
         </Section>
 
         <Section title="Contacts">
-          <Filter handleFilter={this.handleFilter} />
+          <Filter handleFilter={this.handleFilter} value={filter} />
 
           <ContactList
             contacts={renderContacts}
