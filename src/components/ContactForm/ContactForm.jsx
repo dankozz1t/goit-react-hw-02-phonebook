@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
+import { login } from './utils';
+import { ConfettiContainer } from '../Confetti';
+
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
 import s from './ContactForm.module.css';
 
-export default class ContactForm extends Component {
+export class ContactForm extends Component {
   static propTypes = {
     onAddContact: PropTypes.func.isRequired,
   };
@@ -25,7 +28,7 @@ export default class ContactForm extends Component {
 
     this.setState({ name: '', number: '' });
 
-    e.currentTarget.reset();
+    login.submit();
   };
 
   handleInputChange = e => {
@@ -65,6 +68,7 @@ export default class ContactForm extends Component {
         <button className={s.btn} type="submit">
           Add contact
         </button>
+        <ConfettiContainer />
       </form>
     );
   }

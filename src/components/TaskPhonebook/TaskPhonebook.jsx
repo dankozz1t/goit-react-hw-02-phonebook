@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import Section from '../Section';
 import Filter from '../Filter';
 import ContactList from '../ContactList';
-import ContactForm from '../ContactForm';
-
+import { ContactForm } from '../ContactForm';
 import s from './TaskPhonebook.module.css';
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -27,6 +26,7 @@ export default class TaskPhonebook extends Component {
     const searchUnique = contact.name.toLowerCase();
     if (contacts.find(({ name }) => name.toLowerCase() === searchUnique)) {
       Notify.failure(`${contact.name} is already in contacts`);
+
       return;
     }
 
